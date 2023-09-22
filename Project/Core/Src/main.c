@@ -86,19 +86,43 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  int state = 0;
   int count = 0;
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
+  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(count >= 2){
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-		  count = 0;
+	  // state = 0: RED mode
+	  // state = 1: YELLOW mode
+	  // state = 2: GREEN mode
+	  if(state == 0){
+		  if(count >= 5){
+			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+			  state = 2; // turn to GREEN mode
+			  count = 0;
+		  }
+	  }
+	  else if(state == 1){
+		  if(count >= 2){
+			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			  count = 0; // turn to RED mode
+			  state = 0;
+		  }
+	  }
+	  else{
+		  if(count >= 3){
+			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+			  state = 1;
+			  count = 0;
+		  }
 	  }
 	  count++;
 	  HAL_Delay(1000);
