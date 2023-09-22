@@ -183,14 +183,45 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  clearAllClock();
+  int hour = 0;
+  int min = 0;
+  int sec = 0;
+  setNumberOnClock(hour);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_Delay(1000);
+  	  if(sec >= 60){
+  		  if((min/5) < 11 && hour < 11) clearNumberOnClock(11);
+  		  sec = 0;
+  		  min++;
+  		  if(min >= 60){
+  			  if(hour < 11) clearNumberOnClock(11);
+  			  min = 0;
+  			  hour++;
+  			  clearNumberOnClock(hour - 1);
+  			  if(hour >= 12) hour = 0;
+  			  setNumberOnClock(hour);
+  		  }
+  	  }
+
+  	  if(sec % 5 == 0) {
+  		  int temp = sec/5;
+  		  if(temp > 0 && (temp - 1) != (min/5) && (temp - 1) != hour)
+  			  clearNumberOnClock(temp - 1);
+  		  setNumberOnClock(temp);
+  	  }
+  	  if(min % 5 == 0) {
+  		  int temp = min/5;
+  		  if(temp > 0 && (temp - 1) != (sec/5) && (temp - 1) != hour)
+  			  clearNumberOnClock(temp - 1);
+  		  setNumberOnClock(temp);
+  	  }
+  	  sec++;
+  	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
