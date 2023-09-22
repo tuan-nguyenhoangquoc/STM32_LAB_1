@@ -183,6 +183,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   int state = 0;
   int count = 0;
+  int red = 5;
+  int yellow = 2;
+  int green = 3;
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
@@ -196,7 +199,7 @@ int main(void)
 	  // state = 1: YELLOW mode
 	  // state = 2: GREEN mode
 	  if(state == 0){
-		  if(count >= 5){
+		  if(count >= red){
 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			  state = 2; // turn to GREEN mode
@@ -204,7 +207,7 @@ int main(void)
 		  }
 	  }
 	  else if(state == 1){
-		  if(count >= 2){
+		  if(count >= yellow){
 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 			  count = 0; // turn to RED mode
@@ -212,7 +215,7 @@ int main(void)
 		  }
 	  }
 	  else{
-		  if(count >= 3){
+		  if(count >= green){
 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 			  state = 1;
