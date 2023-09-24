@@ -181,85 +181,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int red = 5;
-  int yellow = 2;
-  int green = 3;
-  int state_2 = 2;
-  int state = 0;
-  int count = red;
-  int count_2 = green;
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
-  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
-  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
-  HAL_GPIO_WritePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin, SET);
-  HAL_GPIO_WritePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin, SET);
-  HAL_GPIO_WritePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin, RESET);
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  // state = 0: RED mode
-	  // state = 1: YELLOW mode
-	  // state = 2: GREEN mode
-	  if(state == 0){
-		  display7SEG(count);
-		  if(count <= 0){
-			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-			  state = 2; // turn to GREEN mode
-			  count = green;
-			  display7SEG(count);
-		  }
-	  }
-	  else if(state == 1){
-		  display7SEG(count);
-		  if(count <= 0){
-			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			  count = red; // turn to RED mode
-			  state = 0;
-			  display7SEG(count);
-		  }
-	  }
-	  else{
-		  display7SEG(count);
-		  if(count <= 0){
-			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-			  state = 1; // turn to YELLOW mode
-			  count = yellow;
-			  display7SEG(count);
-		  }
-	  }
-
-	  if(state_2 == 0){
-		  if(count_2 <= 0){
-			  HAL_GPIO_TogglePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin);
-			  HAL_GPIO_TogglePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin);
-			  state_2 = 2; // turn to GREEN mode
-			  count_2 = green;
-		  }
-	  }
-	  else if(state_2 == 1){
-		  if(count_2 <= 0){
-			  HAL_GPIO_TogglePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin);
-			  HAL_GPIO_TogglePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin);
-			  count_2 = red; // turn to RED mode
-			  state_2 = 0;
-		  }
-	  }
-	  else{
-		  if(count_2 <= 0){
-			  HAL_GPIO_TogglePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin);
-			  HAL_GPIO_TogglePin(LED_YELLOW_2_GPIO_Port, LED_YELLOW_2_Pin);
-			  state_2 = 1;	//turn to YELLOW mode
-			  count_2 = yellow;
-	  	  }
-	  }
-	  count--;
-	  count_2--;
+	  if(counter >= 10) counter = 0;
+	  display7SEG(counter++);
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
