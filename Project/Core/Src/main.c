@@ -87,7 +87,7 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   int state = 0;
-  int count = 0;
+  int count = 5;
   int red = 5;
   int yellow = 2;
   int green = 3;
@@ -104,30 +104,30 @@ int main(void)
 	  // state = 1: YELLOW mode
 	  // state = 2: GREEN mode
 	  if(state == 0){
-		  if(count >= red){
+		  if(count <= 0){
 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			  state = 2; // turn to GREEN mode
-			  count = 0;
+			  count = green;
 		  }
 	  }
 	  else if(state == 1){
-		  if(count >= yellow){
+		  if(count <= 0){
 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			  count = 0; // turn to RED mode
+			  count = red; // turn to RED mode
 			  state = 0;
 		  }
 	  }
 	  else{
-		  if(count >= green){
+		  if(count <= 0){
 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-			  state = 1;
-			  count = 0;
+			  state = 1; // turn to YELLOW mode
+			  count = yellow;
 		  }
 	  }
-	  count++;
+	  count--;
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
