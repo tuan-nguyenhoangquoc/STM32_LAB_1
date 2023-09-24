@@ -86,7 +86,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int count = 0;
+  int count = 2;
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
   /* USER CODE END 2 */
@@ -95,12 +95,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(count >= 2){
+	  if(count <= 0){
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 		  count = 0;
 	  }
-	  count++;
+	  count--;
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 

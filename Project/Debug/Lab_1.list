@@ -108,8 +108,8 @@ int main(void)
   MX_GPIO_Init();
  800015a:	f000 f85f 	bl	800021c <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
-  int count = 0;
- 800015e:	2300      	movs	r3, #0
+  int count = 2;
+ 800015e:	2302      	movs	r3, #2
  8000160:	607b      	str	r3, [r7, #4]
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
  8000162:	2200      	movs	r2, #0
@@ -126,10 +126,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(count >= 2){
+	  if(count <= 0){
  8000176:	687b      	ldr	r3, [r7, #4]
- 8000178:	2b01      	cmp	r3, #1
- 800017a:	dd09      	ble.n	8000190 <main+0x44>
+ 8000178:	2b00      	cmp	r3, #0
+ 800017a:	dc09      	bgt.n	8000190 <main+0x44>
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
  800017c:	2120      	movs	r1, #32
  800017e:	4808      	ldr	r0, [pc, #32]	; (80001a0 <main+0x54>)
@@ -142,14 +142,14 @@ int main(void)
  800018c:	2300      	movs	r3, #0
  800018e:	607b      	str	r3, [r7, #4]
 	  }
-	  count++;
+	  count--;
  8000190:	687b      	ldr	r3, [r7, #4]
- 8000192:	3301      	adds	r3, #1
+ 8000192:	3b01      	subs	r3, #1
  8000194:	607b      	str	r3, [r7, #4]
 	  HAL_Delay(1000);
  8000196:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800019a:	f000 f95f 	bl	800045c <HAL_Delay>
-	  if(count >= 2){
+	  if(count <= 0){
  800019e:	e7ea      	b.n	8000176 <main+0x2a>
  80001a0:	40010800 	.word	0x40010800
 
