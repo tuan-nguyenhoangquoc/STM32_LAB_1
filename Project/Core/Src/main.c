@@ -87,10 +87,10 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   int state = 0;
-  int count = 5;
   int red = 5;
   int yellow = 2;
   int green = 3;
+  int count = red;
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);

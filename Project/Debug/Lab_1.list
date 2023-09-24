@@ -111,18 +111,18 @@ int main(void)
   int state = 0;
  800015e:	2300      	movs	r3, #0
  8000160:	617b      	str	r3, [r7, #20]
-  int count = 5;
- 8000162:	2305      	movs	r3, #5
- 8000164:	613b      	str	r3, [r7, #16]
   int red = 5;
- 8000166:	2305      	movs	r3, #5
- 8000168:	60fb      	str	r3, [r7, #12]
+ 8000162:	2305      	movs	r3, #5
+ 8000164:	60fb      	str	r3, [r7, #12]
   int yellow = 2;
- 800016a:	2302      	movs	r3, #2
- 800016c:	60bb      	str	r3, [r7, #8]
+ 8000166:	2302      	movs	r3, #2
+ 8000168:	60bb      	str	r3, [r7, #8]
   int green = 3;
- 800016e:	2303      	movs	r3, #3
- 8000170:	607b      	str	r3, [r7, #4]
+ 800016a:	2303      	movs	r3, #3
+ 800016c:	607b      	str	r3, [r7, #4]
+  int count = red;
+ 800016e:	68fb      	ldr	r3, [r7, #12]
+ 8000170:	613b      	str	r3, [r7, #16]
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
  8000172:	2200      	movs	r2, #0
  8000174:	2120      	movs	r1, #32
